@@ -1,0 +1,135 @@
+package aurora.tech.mas.Models;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Category {
+
+    private ArrayList<Category.CategoryData> results;
+
+    public Category() {
+        this.results = new ArrayList<>();
+    }
+
+    public ArrayList<Category.CategoryData> getResults() {
+        return results;
+    }
+
+    public static class CategoryData {
+        private int categoryID;
+        private String categoryImage;
+        private String categoryName;
+        private ArrayList<SubCategories> subCategoriesArrayList;
+        private int categoryIcon;
+
+        public CategoryData(int categoryID, String categoryName, String categoryImage, ArrayList<SubCategories> subCategories, int categoryIcon) {
+            this.categoryID = categoryID;
+            this.categoryImage = categoryImage;
+            this.categoryName = categoryName;
+            this.subCategoriesArrayList = subCategories;
+            this.categoryIcon = categoryIcon;
+        }
+
+        public int getCategoryID() {
+            return categoryID;
+        }
+
+        public ArrayList<SubCategories> getSubCategoriesArrayList() {
+            return subCategoriesArrayList;
+        }
+
+        public int getCategoryIcon() {
+            return categoryIcon;
+        }
+
+        public String getCategoryImage() {
+            return categoryImage;
+        }
+
+        public String getCategoryName() {
+            return categoryName;
+        }
+
+        public static class SubCategories implements Parcelable {
+            private int subCategoryId;
+            private String subCategoryName;
+            private String subCategoryImage;
+            private int startProductCodeWith;
+            private int mainCategoryId;
+            private int subCategoryIcon;
+
+            public SubCategories(int mainCategoryId, int subCategoryId, String subCategoryName, String subCategoryImage, int startProductCodeWith, int subCategoryIcon) {
+                this.mainCategoryId = mainCategoryId;
+                this.subCategoryId = subCategoryId;
+                this.subCategoryName = subCategoryName;
+                this.subCategoryImage = subCategoryImage;
+                this.startProductCodeWith = startProductCodeWith;
+                this.subCategoryIcon = subCategoryIcon;
+            }
+
+            protected SubCategories(Parcel in) {
+                subCategoryId = in.readInt();
+                subCategoryName = in.readString();
+                subCategoryImage = in.readString();
+                startProductCodeWith = in.readInt();
+                mainCategoryId = in.readInt();
+                subCategoryIcon = in.readInt();
+            }
+
+            public static final Creator<SubCategories> CREATOR = new Creator<SubCategories>() {
+                @Override
+                public SubCategories createFromParcel(Parcel in) {
+                    return new SubCategories(in);
+                }
+
+                @Override
+                public SubCategories[] newArray(int size) {
+                    return new SubCategories[size];
+                }
+            };
+
+            public int getMainCategoryId() {
+                return mainCategoryId;
+            }
+
+            public int getSubCategoryId() {
+                return subCategoryId;
+            }
+
+            public int getStartProductCodeWith() {
+                return startProductCodeWith;
+            }
+
+            public String getSubCategoryImage() {
+                return subCategoryImage;
+            }
+
+            public String getSubCategoryName() {
+                return subCategoryName;
+            }
+
+            public int getSubCategoryIcon() {
+                return subCategoryIcon;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(subCategoryId);
+                dest.writeString(subCategoryName);
+                dest.writeString(subCategoryImage);
+                dest.writeInt(startProductCodeWith);
+                dest.writeInt(mainCategoryId);
+                dest.writeInt(subCategoryIcon);
+            }
+        }
+    }
+}
